@@ -233,7 +233,7 @@ char* readline()
  */
 bool validOperand(const char* str)
 {
-    uint num_dec =  0;
+    unsigned int num_dec =  0;
 
     while (*str)
     {
