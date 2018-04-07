@@ -193,13 +193,22 @@ char* readline()
     char* cursor;
     char* temp_line_data;
 
+    if (line_data == NULL)
+    {
+        printAllocError();
+        exit(EXIT_FAILURE);
+    }
+
     while(true)
     {
         cursor = line_data + num_char;
         temp_line_data = fgets(cursor, alloc_size - num_char, stdin);
 
         if (temp_line_data == NULL)
-            return NULL;
+        {
+            printf("Error reading from stdin!\n");
+            exit(EXIT_FAILURE);
+        }
 
         num_char += strlen(cursor);
 
@@ -211,7 +220,10 @@ char* readline()
         line_data = (char *)realloc(line_data, alloc_size);
 
         if (line_data == NULL)
-            return NULL;
+        {
+            printAllocError();
+            exit(EXIT_FAILURE);
+        }
     }
 
     if (line_data[num_char - 1] == '\n')
